@@ -65,3 +65,5 @@ LinkedIn [Rodrigo Leone](https://www.linkedin.com/in/rodrigo-leone/)
 Primeiro commit na data de 22/06/2024.
 
 Ultimo commit na data de 24/06/2024.
+
+![badge literalura](https://github.com/Rodrigo-Leone/LiterAlura_Catalogo-de-livros/assets/157995982/96d90f70-e061-4af4-a1ac-31efbabc12fd)
