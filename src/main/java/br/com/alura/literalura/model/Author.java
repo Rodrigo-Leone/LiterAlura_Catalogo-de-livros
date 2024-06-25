@@ -19,7 +19,7 @@ public class Author {
     private Integer yearDeath;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Book> books = new ArrayList<>();
+    private final List<Book> books = new ArrayList<>();
 
     public Author(){}
 
