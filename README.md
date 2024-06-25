@@ -18,6 +18,7 @@ Os livros e autores serão buscados por uma API específica e registrádos em um
 - O objetivo é treinar o consumo e desserialização de APIs e registrar os dados em um banco de dados.
 
 > ## Funcionalidades do meu Aplicativo
+
 > ### Menu Principal
 1. Buscar e registrar livros via API Gutendex
 2. Listar livros e autores
