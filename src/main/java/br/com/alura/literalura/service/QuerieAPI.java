@@ -19,7 +19,6 @@ public class QuerieAPI {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-
         return response.body();
     }
 }

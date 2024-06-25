@@ -6,32 +6,46 @@ import br.com.alura.literalura.service.ConstructorService;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class MainList {
 
     private final ConstructorService constructorService;
     private final Scanner scanner = new Scanner(System.in);
 
-    public Main(ConstructorService constructorService) {
+    public MainList(ConstructorService constructorService) {
         this.constructorService = constructorService;
     }
 
-    public void menu() {
+    public void menuList() {
         var option = -1;
         Assistant.showTitle();
-        while (option != 0) {
+        while (option !=0) {
             try {
-                Assistant.showMenuOptions();
+                Assistant.showMenuList();
                 Assistant.message5();
                 option = scanner.nextInt();
                 scanner.nextLine();
                 switch (option) {
                     case 1:
-                        MainSearch mainSearch = new MainSearch(constructorService);
-                        mainSearch.menuSearch();
+                        constructorService.listBooks();
                         break;
                     case 2:
-                        MainList mainList = new MainList(constructorService);
-                        mainList.menuList();
+                        constructorService.listAuthors();
+                        break;
+                    case 3:
+                        constructorService.listAuthorsByYear();
+                        break;
+                    case 4:
+                        constructorService.listBooksByLanguage();
+                        break;
+                    case 5:
+                        constructorService.listBooksByTitleOrAuthor();
+                        break;
+                    case 6:
+                        constructorService.getTop10Donwloads();
+                        break;
+                    case 9:
+                        Main main = new Main(constructorService);
+                        main.menu();
                         break;
                     case 0:
                         Assistant.closingSentence();

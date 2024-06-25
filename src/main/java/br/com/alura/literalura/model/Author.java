@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Autores")
@@ -15,7 +14,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private String author;
+    private String name;
     private Integer yearBirth;
     private Integer yearDeath;
 
@@ -24,14 +23,17 @@ public class Author {
 
     public Author(){}
 
+    public Author(String name, Integer yearBirth, Integer yearDeath) {}
+
     public Author(AuthorDTO authorDTO) {
-        this.author = authorDTO.author();
-        this.yearBirth =authorDTO.yearBirth();
         try {
-            this.yearDeath = authorDTO.yearDeath();
-        } catch (Exception e) {
-            this.yearDeath = null;
+            String[] author = authorDTO.name().split(",");
+            this.name = author[1] + " " + author[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.name = authorDTO.name();
         }
+        this.yearBirth = authorDTO.yearBirth();
+        this.yearDeath = authorDTO.yearDeath();
     }
 
     public Long getId() {
@@ -41,11 +43,11 @@ public class Author {
         this.id = id;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getName() {
+        return name;
     }
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getYearBirth() {
@@ -65,21 +67,16 @@ public class Author {
     public List<Book> getBooks() {
         return books;
     }
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setBooks(Book book) {
+        this.books.add(book);
+        book.setAuthor(this);
     }
 
     @Override
     public String toString() {
-        String booksStr = books.stream()
-                .map(Book::getTitle)
-                .collect(Collectors.joining(", "));
-
-        return  "\n-------------------------------------------------" + '\n' +
-                "Nome: " + author + '\n' +
-                "Ano de nascimento: " + yearBirth + '\n' +
-                "Ano de falecimento: " + yearDeath + "\n" +
-                "Livros: " + booksStr + '\n' +
-                "-------------------------------------------------";
+        return  "Nome: " + name +
+                "\nAno de nascimento: " + yearBirth +
+                "\nAno de falecimento: " + yearDeath +
+                "\nLivros: " + books.stream().map(Book::getTitle).toList() + '\n';
     }
 }

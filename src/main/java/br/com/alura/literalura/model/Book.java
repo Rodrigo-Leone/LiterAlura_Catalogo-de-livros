@@ -12,19 +12,17 @@ public class Book {
     @Column(unique = true)
     private String title;
     private String language;
-    private Double totalDownloads;
+    private Integer totalDownloads;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     private Author author;
 
     public Book() {}
 
     public Book(BookDTO bookDTO) {
-        this.id = bookDTO.id();
         this.title = bookDTO.title();
-        this.language = bookDTO.language().get(0);
+        this.language = bookDTO.language().getFirst();
         this.totalDownloads = bookDTO.numberDownload();
-        this.author = new Author(bookDTO.authors().get(0));
     }
 
     public Long getId() {
@@ -48,10 +46,10 @@ public class Book {
         this.language = language;
     }
 
-    public Double getTotalDownloads() {
+    public Integer getTotalDownloads() {
         return totalDownloads;
     }
-    public void setTotalDownloads(Double totalDownloads) {
+    public void setTotalDownloads(Integer totalDownloads) {
         this.totalDownloads = totalDownloads;
     }
 
@@ -64,12 +62,9 @@ public class Book {
 
     @Override
     public String toString() {
-        return  "\n-------------------------------------------------" + '\n' +
-                "ID: " + id + '\n' +
-                "Titulo: '" + title + '\'' + '\n' +
-                "Idioma: " + language + '\n' +
-                "Total de Downloads: " + totalDownloads + '\n' +
-                "Autor: " + author + '\n' +
-                "-------------------------------------------------";
+        return  "Titulo: " + title +
+                "\nAutor: " + author.getName() +
+                "\nIdioma: " + language +
+                "\nTotal de Downloads: " + totalDownloads + '\n';
     }
 }
